@@ -34,6 +34,7 @@ for filepath in filepaths:
     pdf.cell(w=50, h=10, txt=columns[2], border=1)
     pdf.cell(w=40, h=10, txt=columns[3], border=1)
     pdf.cell(w=25, h=10, txt=columns[4], border=1, ln=1)
+    # add  columns
     for index, row in df.iterrows():
         pdf.set_font(family="Times", size=14)
         pdf.cell(w=25, h=10, txt=str(row['product_id']), border=1)
@@ -41,6 +42,22 @@ for filepath in filepaths:
         pdf.cell(w=50, h=10, txt=str(row['amount_purchased']), border=1)
         pdf.cell(w=40, h=10, txt=str(row['price_per_unit']), border=1)
         pdf.cell(w=25, h=10, txt=str(row['total_price']), border=1, ln=1)
+
+    # add total price
+    pdf.set_font(family="Times", size=14)
+    pdf.cell(w=25, h=10, txt="", border=1)
+    pdf.cell(w=55, h=10, txt="", border=1)
+    pdf.cell(w=50, h=10, txt="", border=1)
+    pdf.cell(w=40, h=10, txt="", border=1)
+    pdf.cell(w=25, h=10, txt=str(df["total_price"].sum()), border=1, ln=1)
+
+    # add text
+    pdf.cell(w=0, h=14, txt=f"The total due amount is {df['total_price'].sum()} Euros", ln=1)
+
+    # add company name and logo
+    pdf.cell(w=27, h=14, txt="Abhinesh.org".title())
+    pdf.image("logo1.png", w=20, h=20)
+
     pdf.output(f"pdf/{filename}.pdf")
 
 
